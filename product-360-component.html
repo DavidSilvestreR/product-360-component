@@ -1,0 +1,139 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="product-360-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .canvas {
+        width: 450px;
+        height: 350px;
+        border: 1px solid red;
+        cursor: grabbing;
+      }
+    </style>
+    <main class="container">
+      <section class="canvas-container">
+        <p>sjhdajsd  [[arrayImageSrc]]</p>
+        <canvas class="canvas" id="fullview"></canvas>
+        <div class="button_muve">
+          <button class="left"><</button> 
+          <button class="rigth">></button>
+         
+        </div>
+        <button onclick="loaded()">Auto Play</button>
+      </section>
+    </main>
+
+  </template>
+
+
+  <script>
+    /**
+     * `product-360-component`
+     * this is a viwer porducto of products in 360
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    let started = true;
+    let ctx;
+    let width, height;
+    var oldx = 0;
+    var direction = "";
+    var stop_timeout = false;
+
+
+    class Product360Component extends Polymer.Element {
+      static get is() { return 'product-360-component'; }
+      static get properties() {
+        return {
+          arrayImageSrc: {
+            type: Array,
+            value:[],
+          },
+          arrayIagesInternal:{
+            type:Array,
+            value:[]
+          },
+          pathImages: {
+            type: String,
+            value: ""
+          },
+          images: {
+            type: Array,
+            value: []
+          },
+          canvas: {
+            type: Element
+          },
+          frame: {
+            type: Number,
+            value: 1
+          }
+
+        }
+      }
+      ready() {
+        super.ready()
+        this.set('canvas', this.$.fullview)
+        ctx = this.canvas.getContext("2d")
+        this.renderCanvas()
+        this.set("arrayImageSrc",this.arrayImageSrc)
+        
+       
+      }
+      attributeChangedCallback(){
+        super.attributeChangedCallback();
+        console.log(this.arrayImageSrc)
+      }
+      renderCanvas() {
+        console.log(this.arrayImageSrc)
+        width = 0;
+        height = 0;
+        this.canvas.width = 440;// window.innerWidth;
+        this.canvas.height = 691;//window.innerHeight;
+        width = this.canvas.width;
+        height = this.canvas.height;
+        for (let i = 1; i < 25; i++) {
+          if (i < 25) {
+            this.images[i] = new Image();
+            this.images[i].src = "/src/" + i + ".jpg";
+          }
+        }
+        this.canvas.addEventListener("mousemove", this.mousemuvefuction.bind(this), true)
+        this.images[this.frame].onload = () => {
+          this.redraw(this.frame);
+        }
+      }
+      mousemuvefuction(event) {
+        let activeElement = event.target || event.srcElement;
+        if (event.pageX > oldx) {
+          direction = "right";
+          this.frame++;
+          if (this.frame > 24) {
+            this.frame = 1
+          }
+        } else if (event.pageX < oldx) {
+          direction = "left";
+          this.frame--;
+          if (this.frame < 0) {
+            this.frame = 23
+          }
+        }
+        oldx =event.pageX
+        this.redraw()
+      }
+      redraw() {
+        let imageObj = new Image();
+        imageObj = this.images[this.frame]
+        ctx.clearRect(0, 0, width, height)
+        ctx.drawImage(imageObj, 0, 0, width, height)
+      }
+    }
+    window.customElements.define(Product360Component.is, Product360Component);
+  </script>
+</dom-module>
