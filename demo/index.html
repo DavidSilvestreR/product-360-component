@@ -12,55 +12,94 @@
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
   <link rel="import" href="../product-360-component.html">
+  <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
 
   <custom-style>
     <style is="custom-style" include="demo-pages-shared-styles">
+      .text{
+        text-align: center;
+        margin-top:20px;
+      }
     </style>
   </custom-style>
 </head>
 
 <body>
   <div class="vertical-section-container centered">
-    <h3>Product-360-component demo</h3>
+    <h3>component viewer product 360</h3>
     <demo-snippet>
-
       <template>
-        <product-360-component></product-360-component>
+        <dom-bind id="firstElement">
+          <template>
+            <product-360-component canvas-width="600" canvas-height="450" array-image-src="[[arrayImageSrc]]"></product-360-component>
+          </template>
+        </dom-bind>
+        <script>
+          const element = document.querySelector('#firstElement')
+          let demoArray = [
+            '/demo/src/1.jpg',
+            '/demo/src/2.jpg',
+            '/demo/src/3.jpg',
+            '/demo/src/4.jpg',
+            '/demo/src/5.jpg',
+            '/demo/src/6.jpg',
+            '/demo/src/7.jpg',
+            '/demo/src/8.jpg',
+            '/demo/src/9.jpg',
+            '/demo/src/10.jpg',
+            '/demo/src/11.jpg',
+            '/demo/src/12.jpg',
+            '/demo/src/13.jpg',
+            '/demo/src/14.jpg',
+            '/demo/src/15.jpg',
+            '/demo/src/16.jpg',
+            '/demo/src/17.jpg',
+            '/demo/src/18.jpg',
+            '/demo/src/19.jpg',
+            '/demo/src/20.jpg',
+            '/demo/src/21.jpg',
+            '/demo/src/22.jpg',
+            '/demo/src/23.jpg',
+            '/demo/src/24.jpg'
+          ]
+          element.arrayImageSrc = demoArray;
+        </script>
       </template>
 
-      <script>
-        const element = document.querySelector('dom-bind')
-        console.log(element)
-        let demoArray = [
-          '/demo/src/1.jpg',
-          '/demo/src/2.jpg',
-          '/demo/src/3.jpg',
-          '/demo/src/4.jpg',
-          '/demo/src/5.jpg',
-          '/demo/src/6.jpg',
-          '/demo/src/7.jpg',
-          '/demo/src/8.jpg',
-          '/demo/src/9.jpg',
-          '/demo/src/10.jpg',
-          '/demo/src/11.jpg',
-          '/demo/src/12.jpg',
-          '/demo/src/13.jpg',
-          '/demo/src/14.jpg',
-          '/demo/src/15.jpg',
-          '/demo/src/16.jpg',
-          '/demo/src/17.jpg',
-          '/demo/src/18.jpg',
-          '/demo/src/19.jpg',
-          '/demo/src/20.jpg',
-          '/demo/src/21.jpg',
-          '/demo/src/22.jpg',
-          '/demo/src/23.jpg',
-          '/demo/src/24.jpg'
-        ]
-        element.setAttribute("arrayImageSrc", demoArray);
-      </script>
+    </demo-snippet>
+
+    <demo-snippet>
+      <template>
+        <dom-bind id="secondElement">
+          <template>
+            <product-360-component controls canvas-width="600" canvas-height="450" array-image-src="[[arrayImageSrc]]"></product-360-component>
+          </template>
+        </dom-bind>
+        <p class="text">the <strong>controls</strong>  attribute displays the component controls to navigate the product</p>
+
+        <script>
+          const element2 = document.querySelector('#secondElement')
+          let demoArraylocal = [
+            '/demo/src/second/1.jpeg',
+            '/demo/src/second/2.jpeg',
+            '/demo/src/second/3.jpeg',
+            '/demo/src/second/4.jpeg',
+            '/demo/src/second/5.jpeg',
+            '/demo/src/second/6.jpeg',
+            '/demo/src/second/7.jpeg',
+            '/demo/src/second/8.jpeg',
+            '/demo/src/second/9.jpeg',
+            '/demo/src/second/10.jpeg',
+            '/demo/src/second/11.jpeg',
+            '/demo/src/second/12.jpeg',
+            '/demo/src/second/13.jpeg'
+          ]
+          element2.set("arrayImageSrc", demoArraylocal);
+        </script>
+      </template>
     </demo-snippet>
   </div>
+
 </body>
 
 </html>

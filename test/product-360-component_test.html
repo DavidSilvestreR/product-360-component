@@ -1,52 +1,74 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>product-360-component test</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+  <title>product-360-component test</title>
 
-    <link rel="import" href="../product-360-component.html">
-  </head>
-  <body>
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
 
-    <test-fixture id="BasicTestFixture">
-      <template>
-        <product-360-component></product-360-component>
-      </template>
-    </test-fixture>
+  <link rel="import" href="../product-360-component.html">
+</head>
 
-    <test-fixture id="ChangedPropertyTestFixture">
-      <template>
-        <product-360-component prop1="new-prop1"></product-360-component>
-      </template>
-    </test-fixture>
+<body>
 
-    <script>
-      suite('product-360-component', () => {
-
-        test('instantiating the element with default properties works', () => {
-          const element = fixture('BasicTestFixture');
-          assert.equal(element.prop1, 'product-360-component');
-          const elementShadowRoot = element.shadowRoot;
-          const elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello product-360-component!');
-        });
-
-        test('setting a property on the element works', () => {
-          // Create a test fixture
-          const element = fixture('ChangedPropertyTestFixture');
-          assert.equal(element.prop1, 'new-prop1');
-          const elementShadowRoot = element.shadowRoot;
-          const elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello new-prop1!');
-        });
+  <test-fixture id="getImageBind">
+    <template>
+      <product-360-component></product-360-component>
+    </template>
+  </test-fixture>
+  <test-fixture id="executebuttonfuction">
+    <template>
+      <product-360-component></product-360-component>
+    </template>
+  </test-fixture>
+  <script>
+    suite('product-360-component', () => {
+      test('instantiating the element with default properties works', () => {
+        const element = fixture('getImageBind');
+        const demoArray = [
+          '/demo/src/1.jpg',
+          '/demo/src/2.jpg',
+          '/demo/src/3.jpg',
+          '/demo/src/4.jpg',
+          '/demo/src/5.jpg',
+          '/demo/src/6.jpg',
+          '/demo/src/7.jpg',
+          '/demo/src/8.jpg',
+          '/demo/src/9.jpg',
+          '/demo/src/10.jpg',
+          '/demo/src/11.jpg',
+          '/demo/src/12.jpg',
+          '/demo/src/13.jpg',
+          '/demo/src/14.jpg',
+          '/demo/src/15.jpg',
+          '/demo/src/16.jpg',
+          '/demo/src/17.jpg',
+          '/demo/src/18.jpg',
+          '/demo/src/19.jpg',
+          '/demo/src/20.jpg',
+          '/demo/src/21.jpg',
+          '/demo/src/22.jpg',
+          '/demo/src/23.jpg',
+          '/demo/src/24.jpg'
+        ];
+        element.set("arrayImageSrc", demoArray)
+        assert.equal(element.arrayImageSrc, demoArray);
+      });
+      test('instantiating the element with default properties works', () => {
+        const element = fixture('executebuttonfuction');
+        const button =element.shadowRoot.querySelector('paper-button')
+        const spy = sinon.spy(element, '_playbutton');
+        button.click()
+        assert.isTrue(spy.called);
 
       });
-    </script>
+    });
+  </script>
 
-  </body>
+</body>
+
 </html>
